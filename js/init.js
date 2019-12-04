@@ -138,6 +138,7 @@
 ------------------------------------------------------*/
 
    $('button.submit').click(function() {
+console.log("Email Form Submit ");
 
       $('#image-loader').fadeIn();
 

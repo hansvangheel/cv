@@ -35,20 +35,21 @@ if($_POST) {
    $message .= "<br /> ----- <br /> This email was sent from your site's contact form. <br />";
 
    // Set From: header
-   $from =  $name . " <" . $email . ">";
+   $from =  $email  ;
+//    $from =  $name . " <" . $email . ">";
 
    // Email Headers
-	$headers = "From: " . $from . "\r\n";
-	$headers .= "Reply-To: ". $email . "\r\n";
- 	$headers .= "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-
+	// $headers = "From: " . $from . "\r\n";
+	// $headers .= "Reply-To: ". $email . "\r\n";
+ 	// $headers .= "MIME-Version: 1.0\r\n";
+	// $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+	$header = "From: ".$from;
 
    if (!$error) {
 
-      ini_set("sendmail_from", $siteOwnersEmail); // for windows server
+    //   ini_set("sendmail_from", $siteOwnersEmail); // for windows server
       $mail = mail($siteOwnersEmail, $subject, $message, $headers);
-
+echo $mail;
 		if ($mail) { 
 			echo "OK"; 
 		} else { 
