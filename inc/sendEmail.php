@@ -3,71 +3,53 @@
 // Replace this with your own email address
 $siteOwnersEmail = 'intergalactic20@gmail.com';
 
+if ($_POST) {
 
-if($_POST) {
+    $name = trim(stripslashes($_POST['contactName']));
+    $email = trim(stripslashes($_POST['contactEmail']));
+    $subject = trim(stripslashes($_POST['contactSubject']));
+    $contact_message = trim(stripslashes($_POST['contactMessage']));
+    // $contact_message = "Some text for testing purposes.";
 
-   $name = trim(stripslashes($_POST['contactName']));
-   $email = trim(stripslashes($_POST['contactEmail']));
-   $subject = trim(stripslashes($_POST['contactSubject']));
-   $contact_message = trim(stripslashes($_POST['contactMessage']));
-
-   // Check Name
-	if (strlen($name) < 2) {
-		$error['name'] = "Please enter your name.";
-	}
-	// Check Email
-	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-		$error['email'] = "Please enter a valid email address.";
+    // Check Name
+    if (strlen($name) < 2) {
+        $error['name'] = "Please enter your name.";
     }
-	// Check Message
-	if (strlen($contact_message) < 15) {
-		$error['message'] = "Please enter your message. It should have at least 15 characters.";
-	}
-   // Subject
-	if ($subject == '') { $subject = "Contact Form Submission"; }
+    // Check Email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error['email'] = "Please enter a valid email address.";
+    }
+    // Check Message
+    if (strlen($contact_message) < 15) {
+        $error['message'] = "Please enter your message. It should have at least 15 characters.";
+    }
+    // Subject
+    if ($subject == '') {
+        $subject = "Contact Form Submission";
+    }
 
+    // Set Message
+    $message = "Email from: $name \r\n";
+    $message .= "Email address: $email \r\n";
+    $message .= "Message: \r\n \r\n";
+    $message .= $contact_message;
+    $message .= "\r\n \r\n ----- \r\n This email was sent from your site's contact form. \r\n";
 
-   // Set Message
-   $message = "Email from: " . $name . "<br />";
-	$message .= "Email address: " . $email . "<br />";
-   $message .= "Message: <br />";
-   $message .= $contact_message;
-   $message .= "<br /> ----- <br /> This email was sent from your site's contact form. <br />";
+    // Email Header
+    $header = "From: $email";
 
-   // Set From: header
-   $from =  $email  ;
-//    $from =  $name . " <" . $email . ">";
-
-   // Email Headers
-	// $headers = "From: " . $from . "\r\n";
-	// $headers .= "Reply-To: ". $email . "\r\n";
- 	// $headers .= "MIME-Version: 1.0\r\n";
-	// $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
-	$header = "From: ".$from;
-
-   if (!$error) {
-
-    //   ini_set("sendmail_from", $siteOwnersEmail); // for windows server
-      $mail = mail($siteOwnersEmail, $subject, $message, $headers);
-echo $mail;
-		if ($mail) { 
-			echo "OK"; 
-		} else { 
-			echo "Something went wrong. Please try again."; 
-		}
-		
-	} # end if - no validation error
-
-	else {
-
-		$response = (isset($error['name'])) ? $error['name'] . "<br /> \n" : null;
-		$response .= (isset($error['email'])) ? $error['email'] . "<br /> \n" : null;
-		$response .= (isset($error['message'])) ? $error['message'] . "<br />" : null;
-		
-		echo $response;
-
-	} # end if - there was a validation error
-
+    if (!$error) {
+        //   ini_set("sendmail_from", $siteOwnersEmail); // for windows server
+        $mail = mail($siteOwnersEmail, $subject, $message, $header);
+        if ($mail) {
+            echo "OK";
+        } else {
+            echo "Something went wrong. Please try again.";
+        }
+    } else {
+        $response = (isset($error['name'])) ? $error['name'] . "<br /> \n" : null;
+        $response .= (isset($error['email'])) ? $error['email'] . "<br /> \n" : null;
+        $response .= (isset($error['message'])) ? $error['message'] . "<br />" : null;
+        echo $response;
+    }
 }
-
-?>
