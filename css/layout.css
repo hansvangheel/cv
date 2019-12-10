@@ -179,7 +179,7 @@ header .scrolldown a:hover { color: #11ABB0; }
 }
 
 @keyframes a-ltr-after{ /* rood */
-    0% {transform: translateX(-100%); border: 1px solid blue;}
+    0% {transform: translateX(-100%)}
     80% {transform: translateX(101%)}
     100% {transform: translateX(101%)}
 }
