@@ -135,7 +135,6 @@ header .scrolldown a:hover { color: #11ABB0; }
 
 .home-title span{
     position: relative;
-    top: -120px;
     overflow: hidden;
     display: block;
     line-height: 1.2;
@@ -167,25 +166,27 @@ header .scrolldown a:hover { color: #11ABB0; }
     transform: translateX(0);
 }
 
-.home-title span:nth-of-type(1)::before,
-.home-title span:nth-of-type(1)::after{
-    animation-delay: 3s;
+.home-title span:nth-of-type(1)::before, /* zwart eerste regel */
+.home-title span:nth-of-type(1)::after{ /* rood eerste regel */
+    animation-delay: 10s;
     animation-iteration-count: infinite;
 }
 
-.home-title span:nth-of-type(2)::before,
-.home-title span:nth-of-type(2)::after{
+.home-title span:nth-of-type(2)::before, /* zwart tweede regel */
+.home-title span:nth-of-type(2)::after{ /* rood tzeede regel */
     animation-delay: 3.5s;
     animation-iteration-count: infinite;
 }
 
-@keyframes a-ltr-after{
-    0% {transform: translateX(-100%)}
+@keyframes a-ltr-after{ /* rood */
+    0% {transform: translateX(-100%); border: 1px solid blue;}
+    80% {transform: translateX(101%)}
     100% {transform: translateX(101%)}
 }
 
-@keyframes a-ltr-before{
-    0% {transform: translateX(0)}
+@keyframes a-ltr-before{ /*  */
+    0% {transform: translateX(-50%)}
+    80% {transform: translateX(200%)}
     100% {transform: translateX(200%)}
 }
 
